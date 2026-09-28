@@ -28,7 +28,7 @@ def evaluate(
         lengths = np.zeros(num_envs)
         success_once = np.zeros(num_envs)
         success_end = np.zeros(num_envs)
-        if env_type == "isaaclab":
+        if env_type in ("isaaclab", "mjlab"):
             observations, infos = env.reset(random_start_init=False)  # type: ignore[call-arg]
         else:
             observations, infos = env.reset()
@@ -106,7 +106,7 @@ def record_video(
     for _ in range(num_eval_episodes_per_env):
         videos: list[NDArray] = []
 
-        if env_type == "isaaclab":
+        if env_type in ("isaaclab", "mjlab"):
             observations, infos = env.reset(random_start_init=False)  # type: ignore[call-arg]
         else:
             observations, infos = env.reset()

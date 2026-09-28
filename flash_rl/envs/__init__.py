@@ -95,6 +95,21 @@ def create_envs(
         eval_env = train_env
         record_env = train_env
 
+    elif env_type == "mjlab":
+        from flash_rl.envs.mjlab import make_mjlab_env
+
+        assert rescale_action is None, "Unused hyperparameter in mjlab."
+        assert num_eval_envs is None, "Unused hyperparameter in mjlab."
+        assert num_record_envs is None, "Unused hyperparameter in mjlab."
+        train_env = make_mjlab_env(
+            env_name=env_name,
+            num_envs=num_train_envs,
+            seed=seed,
+        )
+        # NOTE: Like IsaacLab, one simulator instance serves training and evaluation.
+        eval_env = train_env
+        record_env = train_env
+
     elif env_type == "maniskill":
         from flash_rl.envs.maniskill import make_maniskill_env
 
